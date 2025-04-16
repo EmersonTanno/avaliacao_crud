@@ -1,5 +1,6 @@
 package com.emerson.avaliacao_crud.service;
 
+import com.emerson.avaliacao_crud.dto.PessoaDTO;
 import com.emerson.avaliacao_crud.dto.TrabalhoDTO;
 import com.emerson.avaliacao_crud.model.Pessoa;
 import com.emerson.avaliacao_crud.model.Trabalho;
@@ -62,5 +63,14 @@ public class TrabalhoService {
         trabalho.getPessoas().add(pessoa);
 
         trabalhoRepository.save(trabalho);
+    }
+
+    public List<PessoaDTO> listarPessoasPorTrabalho(Long trabalhoId) {
+        Trabalho trabalho = trabalhoRepository.findById(trabalhoId)
+                .orElseThrow(() -> new RuntimeException("Trabalho não encontrado"));
+
+        return trabalho.getPessoas().stream()
+                .map(pessoa -> new PessoaDTO(pessoa.getId(), pessoa.getCpf(), pessoa.getIdade()))
+                .collect(Collectors.toList());
     }
 }

@@ -13,9 +13,8 @@ public class Trabalho {
     private String nome;
     private String endereco;
 
-    @OneToMany
+    @OneToMany(mappedBy = "trabalho")
     private List<Pessoa> pessoas;
-
 
     public Trabalho() {}
 

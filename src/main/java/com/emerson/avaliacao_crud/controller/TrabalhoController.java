@@ -1,5 +1,6 @@
 package com.emerson.avaliacao_crud.controller;
 
+import com.emerson.avaliacao_crud.dto.PessoaDTO;
 import com.emerson.avaliacao_crud.dto.TrabalhoDTO;
 import com.emerson.avaliacao_crud.model.Pessoa;
 import com.emerson.avaliacao_crud.repository.PessoaRepository;
@@ -79,6 +80,11 @@ public class TrabalhoController {
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @GetMapping("/{id}/pessoas")
+    public List<PessoaDTO> listarPessoasPorTrabalho(@PathVariable Long id) {
+        return trabalhoService.listarPessoasPorTrabalho(id);
     }
 
 }

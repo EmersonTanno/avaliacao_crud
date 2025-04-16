@@ -10,7 +10,7 @@ public class Pessoa {
     private Long id;
 
     private String cpf;
-    private int idade;
+    private Integer idade;
 
     @ManyToOne
     @JoinColumn(name = "trabalho_id")

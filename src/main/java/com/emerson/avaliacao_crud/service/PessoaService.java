@@ -49,7 +49,7 @@ public class PessoaService {
         {
             pessoa.setCpf(dto.getCpf());
         }
-        if(dto.getIdade() >= 0)
+        if(dto.getIdade() != null)
         {
             pessoa.setIdade(dto.getIdade());
         }

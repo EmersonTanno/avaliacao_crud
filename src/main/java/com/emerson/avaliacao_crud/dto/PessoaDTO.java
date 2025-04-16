@@ -3,11 +3,11 @@ package com.emerson.avaliacao_crud.dto;
 public class PessoaDTO {
     private long id;
     private String cpf;
-    private int idade;
+    private Integer idade;
 
     public PessoaDTO(){}
 
-    public PessoaDTO(long id, String cpf, int idade){
+    public PessoaDTO(long id, String cpf, Integer idade){
         this.id = id;
         this.cpf = cpf;
         this.idade = idade;
@@ -29,7 +29,7 @@ public class PessoaDTO {
         this.idade = idade;
     }
 
-    public int getIdade() {
+    public Integer getIdade() {
         return idade;
     }
 

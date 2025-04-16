@@ -4,6 +4,7 @@ import com.emerson.avaliacao_crud.dto.PessoaDTO;
 import com.emerson.avaliacao_crud.dto.TrabalhoDTO;
 import com.emerson.avaliacao_crud.model.Pessoa;
 import com.emerson.avaliacao_crud.model.Trabalho;
+import com.emerson.avaliacao_crud.repository.PessoaRepository;
 import com.emerson.avaliacao_crud.repository.TrabalhoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,8 @@ public class TrabalhoService {
 
     @Autowired
     private TrabalhoRepository trabalhoRepository;
+    @Autowired
+    private PessoaRepository pessoaRepository;
 
     public Trabalho create(TrabalhoDTO dto) {
         Trabalho trabalho = new Trabalho();
@@ -37,7 +40,15 @@ public class TrabalhoService {
     }
 
     public void delete(Long id) {
-        trabalhoRepository.deleteById(id);
+        Trabalho trabalho = trabalhoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Trabalho não encontrado"));
+
+        for (Pessoa pessoa : trabalho.getPessoas()) {
+            pessoa.setTrabalho(null);
+            pessoaRepository.save(pessoa);
+        }
+
+        trabalhoRepository.delete(trabalho);
     }
 
     public TrabalhoDTO update(Long id, TrabalhoDTO dto) {
